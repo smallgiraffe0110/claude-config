@@ -1,0 +1,2 @@
+- [Always use high effort](feedback_high_effort.md) — apply maximum effort and thoroughness to all tasks
+- [Restaurant Pipeline Live](project_restaurant_pipeline.md) — SitePlated pipeline is live, searching cities for restaurant targets

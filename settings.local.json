@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node openclaw.mjs doctor:*)",
+      "Bash(node:*)",
+      "Bash(curl:*)",
+      "Bash(ollama list:*)",
+      "Bash(OLLAMA_API_KEY=ollama node:*)",
+      "Bash(taskkill:*)",
+      "Bash(netstat:*)",
+      "Bash(ss:*)",
+      "Bash(tasklist:*)",
+      "Bash(python -m py_compile:*)",
+      "Bash(python:*)",
+      "Bash(ls:*)",
+      "Bash(pip install:*)",
+      "Bash(git pull:*)",
+      "Bash(git branch:*)",
+      "WebSearch",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npm run build:*)",
+      "Bash(gh auth:*)",
+      "Bash(winget list:*)",
+      "Bash(git config:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npx kill-port:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(claude:*)",
+      "Bash(cmdkey:*)",
+      "Bash(cmdkey.exe:*)",
+      "Bash(where jq:*)",
+      "Bash(bash:*)",
+      "Bash(xargs grep:*)",
+      "Bash(python3:*)"
+    ]
+  },
+  "disabledMcpjsonServers": [
+    "claude.ai Canva"
+  ]
+}
