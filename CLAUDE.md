@@ -1,5 +1,8 @@
 # User-Level Instructions
 
+## Effort Level
+- **ALWAYS use MAX effort.** Every task gets the absolute highest level of thoroughness, analysis, and attention to detail. No shortcuts, no lazy defaults, no holding back. Push beyond "good enough" to the best possible outcome.
+
 ## Tech Stack
 - **Framework:** Next.js (App Router preferred)
 - **Language:** TypeScript (strict mode)
@@ -29,3 +32,11 @@
 ## Git
 - Write concise commit messages in imperative mood
 - Always check `git status` before committing
+
+## gstack
+Use /browse from gstack for all web browsing. Never use mcp__claude-in-chrome__* tools.
+Available skills: /office-hours, /plan-ceo-review, /plan-eng-review, /plan-design-review,
+/design-consultation, /design-shotgun, /design-html, /review, /ship, /land-and-deploy,
+/canary, /benchmark, /browse, /open-gstack-browser, /qa, /qa-only, /design-review,
+/setup-browser-cookies, /setup-deploy, /retro, /investigate, /document-release, /codex,
+/cso, /autoplan, /pair-agent, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade, /learn.
