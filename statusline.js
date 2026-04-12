@@ -55,12 +55,12 @@ function colorFor(pct) {
 }
 
 // Thin line bar matching Claude Code's native usage display
-function smoothBar(pct, width = 14) {
+function smoothBar(pct, width = 14, color = null) {
   if (pct == null) return `${GRAY}${'─'.repeat(width)}${RST}`;
   const p = Math.min(100, Math.max(0, Math.round(pct)));
   const full = Math.round(p * width / 100);
   const empty = width - full;
-  const c = colorFor(p);
+  const c = color || colorFor(p);
   return `${c}${'━'.repeat(full)}${GRAY}${'─'.repeat(empty)}${RST}`;
 }
 
@@ -135,7 +135,7 @@ process.stdin.on('end', () => {
   if (usage?.five_hour?.utilization != null) {
     const u = Math.round(usage.five_hour.utilization);
     const reset = timeUntil(usage.five_hour.resets_at);
-    lines.push(`${BLUE}⏱ 5h${RST} ${smoothBar(u)} ${colorFor(u)}${BOLD}${u}%${RST}${reset ? `  ${GRAY}↻ ${reset}${RST}` : ''}`);
+    lines.push(`${BLUE}⏱ 5h${RST} ${smoothBar(u, 14, BLUE)} ${BLUE}${BOLD}${u}%${RST}${reset ? `  ${GRAY}↻ ${reset}${RST}` : ''}`);
   }
 
   // Line 3: 7-day weekly limit
