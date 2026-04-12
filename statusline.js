@@ -2,11 +2,25 @@
 // Claude Code status line — Max plan usage with style
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const HOME = process.env.HOME || process.env.USERPROFILE;
 const CACHE_PATH = path.join(HOME, '.claude', '.usage-cache.json');
 const CREDS_PATH = path.join(HOME, '.claude', '.credentials.json');
 const CACHE_TTL = 60_000;
+
+function readCredentials() {
+  try {
+    return JSON.parse(fs.readFileSync(CREDS_PATH, 'utf8'));
+  } catch {}
+  if (process.platform === 'darwin') {
+    try {
+      const out = execSync('security find-generic-password -s "Claude Code-credentials" -w', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+      return JSON.parse(out);
+    } catch {}
+  }
+  return null;
+}
 
 const TERMINAL_TITLE_PREFIX = process.env.CLAUDE_TERMINAL_NAME || 'opus';
 
@@ -68,8 +82,8 @@ function timeUntil(isoStr) {
 // Fetch + cache usage
 function refreshUsageCache() {
   try {
-    const creds = JSON.parse(fs.readFileSync(CREDS_PATH, 'utf8'));
-    const token = creds.claudeAiOauth?.accessToken;
+    const creds = readCredentials();
+    const token = creds?.claudeAiOauth?.accessToken;
     if (!token) return;
     fetch('https://api.anthropic.com/api/oauth/usage', {
       headers: {
