@@ -141,7 +141,7 @@ process.stdin.on('end', () => {
   // Line 3: 7-day weekly limit
   if (usage?.seven_day?.utilization != null) {
     const u = Math.round(usage.seven_day.utilization);
-    lines.push(`${TEAL}◇ 7d${RST} ${smoothBar(u)} ${colorFor(u)}${BOLD}${u}%${RST}`);
+    lines.push(`${TEAL}◇ 7d${RST} ${smoothBar(u, 14, TEAL)} ${TEAL}${BOLD}${u}%${RST}`);
   }
 
   process.stdout.write(lines.map(l => ` ${l}`).join('\n'));
