@@ -54,21 +54,14 @@ function colorFor(pct) {
   return GREEN;
 }
 
-// Smooth gradient bar using partial block characters
-function smoothBar(pct, width = 10) {
-  if (pct == null) return `${GRAY}${'░'.repeat(width)}${RST}`;
+// Thin line bar matching Claude Code's native usage display
+function smoothBar(pct, width = 14) {
+  if (pct == null) return `${GRAY}${'─'.repeat(width)}${RST}`;
   const p = Math.min(100, Math.max(0, Math.round(pct)));
-  const total = p * width / 100;
-  const full = Math.floor(total);
-  const remainder = total - full;
-  const empty = width - full - (remainder > 0 ? 1 : 0);
-
-  // Partial block characters: ▏▎▍▌▋▊▉█
-  const partials = [' ', '▏', '▎', '▍', '▌', '▋', '▊', '▉'];
-  const partialChar = remainder > 0 ? partials[Math.round(remainder * 7)] : '';
-
+  const full = Math.round(p * width / 100);
+  const empty = width - full;
   const c = colorFor(p);
-  return `${c}${'▓'.repeat(full)}${partialChar}${GRAY}${'░'.repeat(empty)}${RST}`;
+  return `${c}${'━'.repeat(full)}${GRAY}${'─'.repeat(empty)}${RST}`;
 }
 
 function timeUntil(isoStr) {
