@@ -8,6 +8,8 @@ const CACHE_PATH = path.join(HOME, '.claude', '.usage-cache.json');
 const CREDS_PATH = path.join(HOME, '.claude', '.credentials.json');
 const CACHE_TTL = 60_000;
 
+const TERMINAL_TITLE_PREFIX = process.env.CLAUDE_TERMINAL_NAME || 'opus';
+
 // ANSI colors
 const RST  = '\x1b[0m';
 const BOLD = '\x1b[1m';
@@ -107,15 +109,11 @@ process.stdin.on('end', () => {
   const cost = (session.cost?.total_cost_usd || 0).toFixed(2);
   const usage = readUsageCache();
 
-  let parts = [];
+  try {
+    fs.writeFileSync('/dev/tty', `\x1b]0;${TERMINAL_TITLE_PREFIX}\x07`);
+  } catch {}
 
-  // Working directory
-  const cwd = session.cwd || session.workspace?.current_dir || '';
-  if (cwd) {
-    const home = process.env.HOME || process.env.USERPROFILE || '';
-    const displayCwd = home ? cwd.replace(home, '~') : cwd;
-    parts.push(`${BOLD}${TEAL}${displayCwd}${RST}`);
-  }
+  let parts = [];
 
   // Model badge
   parts.push(`${BOLD}${PURPLE}◆ ${model}${RST}`);
