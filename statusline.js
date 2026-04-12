@@ -127,34 +127,29 @@ process.stdin.on('end', () => {
     fs.writeFileSync('/dev/tty', `\x1b]0;${TERMINAL_TITLE_PREFIX}\x07`);
   } catch {}
 
-  let parts = [];
-
-  // Model badge
-  parts.push(`${BOLD}${PURPLE}◆ ${model}${RST}`);
-
-  // Separator
   const SEP = `${GRAY}│${RST}`;
+  const lines = [];
 
-  // 5-hour session limit
+  // Line 1: model + context + cost
+  const line1 = [`${BOLD}${PURPLE}◆ ${model}${RST}`];
+  if (ctxPct > 0) {
+    line1.push(`${SEP}  ${PINK}⬡ ctx${RST} ${colorFor(ctxPct)}${ctxPct}%${RST}`);
+  }
+  line1.push(`${SEP}  ${ORANGE}$ ${cost}${RST}`);
+  lines.push(line1.join(' '));
+
+  // Line 2: 5-hour session limit
   if (usage?.five_hour?.utilization != null) {
     const u = Math.round(usage.five_hour.utilization);
     const reset = timeUntil(usage.five_hour.resets_at);
-    parts.push(`${SEP}  ${BLUE}⏱ 5h${RST} ${smoothBar(u)} ${colorFor(u)}${BOLD}${u}%${RST}${reset ? `  ${GRAY}↻ ${reset}${RST}` : ''}`);
+    lines.push(`${BLUE}⏱ 5h${RST} ${smoothBar(u)} ${colorFor(u)}${BOLD}${u}%${RST}${reset ? `  ${GRAY}↻ ${reset}${RST}` : ''}`);
   }
 
-  // 7-day weekly limit
+  // Line 3: 7-day weekly limit
   if (usage?.seven_day?.utilization != null) {
     const u = Math.round(usage.seven_day.utilization);
-    parts.push(`${SEP}  ${TEAL}◇ 7d${RST} ${smoothBar(u)} ${colorFor(u)}${BOLD}${u}%${RST}`);
+    lines.push(`${TEAL}◇ 7d${RST} ${smoothBar(u)} ${colorFor(u)}${BOLD}${u}%${RST}`);
   }
 
-  // Context window
-  if (ctxPct > 0) {
-    parts.push(`${SEP}  ${PINK}⬡ ctx${RST} ${colorFor(ctxPct)}${ctxPct}%${RST}`);
-  }
-
-  // Cost
-  parts.push(`${SEP}  ${ORANGE}$ ${cost}${RST}`);
-
-  process.stdout.write(` ${parts.join(' ')} `);
+  process.stdout.write(lines.map(l => ` ${l}`).join('\n'));
 });
