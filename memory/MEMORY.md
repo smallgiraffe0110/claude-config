@@ -1,2 +1,2 @@
-- [Always use high effort](feedback_high_effort.md) — apply maximum effort and thoroughness to all tasks
-- [Restaurant Pipeline Live](project_restaurant_pipeline.md) — SitePlated pipeline is live, searching cities for restaurant targets
+- [Always use MAX effort](feedback_high_effort.md) — apply MAX (absolute highest) effort and thoroughness to all tasks
+- [User identity](user_identity.md) — Hunter Earls, GitHub smallgiraffe0110; correct git commit identity (global config had wrong "Quinn Hall")

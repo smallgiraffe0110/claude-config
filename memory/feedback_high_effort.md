@@ -1,10 +1,10 @@
 ---
-name: Always use high effort
-description: User wants Claude to always apply maximum effort and thoroughness to all tasks
+name: Always use MAX effort
+description: User wants Claude to always apply MAX (maximum) effort and thoroughness to all tasks — not just high, but the absolute highest level
 type: feedback
 ---
 
-Always use high effort on every task — no shortcuts, no lazy defaults.
+Always use MAX effort on every task — no shortcuts, no lazy defaults, no holding back.
 
-**Why:** User explicitly requested this as a standing instruction.
-**How to apply:** Approach every task with thorough analysis, comprehensive solutions, and attention to detail. Don't take the easy path when a better one exists.
+**Why:** User explicitly upgraded from high to MAX effort as a standing instruction.
+**How to apply:** Approach every task with the deepest analysis, most comprehensive solutions, and meticulous attention to detail. Push beyond "good enough" to the best possible outcome.

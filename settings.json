@@ -1,29 +1,19 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(*)",
-      "Edit",
-      "Write",
-      "Read",
-      "Glob",
-      "Grep",
-      "WebFetch",
-      "WebSearch",
-      "NotebookEdit"
-    ],
-    "deny": [
-      "Bash(rm -rf /:*)",
-      "Bash(rm -rf /*:*)"
-    ]
+    "defaultMode": "bypassPermissions"
   },
-  "model": "claude-opus-4-6",
   "statusLine": {
     "type": "command",
     "command": "node ~/.claude/statusline.js"
   },
   "enabledPlugins": {
     "superpowers@superpowers-marketplace": true,
-    "superpowers-lab@superpowers-marketplace": true
+    "superpowers-lab@superpowers-marketplace": true,
+    "vercel-plugin@vercel-vercel-plugin": false,
+    "caveman@caveman": true,
+    "frontend-design@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true,
+    "startup-skills@startup-skills": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
@@ -31,7 +21,28 @@
         "source": "github",
         "repo": "obra/superpowers-marketplace"
       }
+    },
+    "vercel-vercel-plugin": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/hunterearls/.cache/plugins/.install-staging/d213b31fb62cc951ac6d821db9abe0b8140c7780/cursor/repo"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "startup-skills": {
+      "source": {
+        "source": "github",
+        "repo": "quinnhall07/startup-skills"
+      }
     }
   },
-  "dangerouslySkipPermissions": true
+  "effortLevel": "xhigh",
+  "tui": "default",
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": false
 }

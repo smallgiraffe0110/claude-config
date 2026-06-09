@@ -3,6 +3,11 @@
 ## Effort Level
 - **ALWAYS use MAX effort.** Every task gets the absolute highest level of thoroughness, analysis, and attention to detail. No shortcuts, no lazy defaults, no holding back. Push beyond "good enough" to the best possible outcome.
 
+## Projects Home
+- All my code repos live in **`~/code`**. Treat it as the workspace root.
+- **New projects go in `~/code/<name>`.** When creating a new project/app/repo, scaffold it under `~/code/` unless I give an explicit path. Don't create projects in `~` or `~/Downloads`.
+- Shell helpers exist: `newproj <name>` (mkdir + git init in ~/code) and `newnext <name>` (create-next-app in ~/code). Repos are tracked with `gita` (`repos` = status of all).
+
 ## Tech Stack
 - **Framework:** Next.js (App Router preferred)
 - **Language:** TypeScript (strict mode)

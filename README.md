@@ -10,33 +10,51 @@ cd claude-config
 bash setup.sh
 ```
 
-Then restart your terminal (or run `source ~/.bashrc`).
+Then restart your terminal (or re-source your shell rc — `~/.zshrc` on macOS).
 
 ## What's Included
 
 | File | Purpose |
 |---|---|
-| `settings.json` | Global settings — model, permissions, plugins, status line |
-| `settings.local.json` | Local/project-scoped permissions and disabled MCP servers |
-| `CLAUDE.md` | Global instructions (tech stack, coding style, conventions) |
+| `settings.json` | Global settings — permissions mode, effort level, plugins, marketplaces, status line |
+| `settings.local.json` | Local/project-scoped Bash permissions and disabled MCP servers |
+| `CLAUDE.md` | Global instructions (effort, projects home, tech stack, coding style, gstack skills) |
 | `statusline.js` | Custom status line script |
-| `memory/` | Persistent memory files (feedback, project context) |
+| `memory/` | Persistent memory files (user identity, feedback) |
+
+### Plugins enabled
+
+`superpowers` + `superpowers-lab` (obra/superpowers-marketplace), `caveman`
+(JuliusBrussee/caveman), `startup-skills` (quinnhall07/startup-skills), and the
+official `frontend-design` + `vercel` plugins. They auto-install on first launch.
+
+> Note: the `vercel-vercel-plugin` marketplace entry in `settings.json` points at
+> a machine-local `.cache/plugins/.install-staging/...` path and is **disabled**.
+> It won't resolve on another machine — drop it (or repoint it) on restore.
 
 ## Persistent Max Effort
 
-Claude Code's `max` effort level (Opus 4.6 only) does **not** persist via `settings.json` — only `low`, `medium`, and `high` do.
+Current Claude Code persists effort directly via `"effortLevel"` in `settings.json`
+(this backup ships `xhigh`, the top tier — formerly surfaced as `max`). That alone
+makes it stick across terminal sessions.
 
-To make `max` stick across sessions, `setup.sh` sets the `CLAUDE_CODE_EFFORT_LEVEL` environment variable in two places:
+`setup.sh` *also* exports `CLAUDE_CODE_EFFORT_LEVEL=max` as a fallback — it covers
+desktop-app launches and older builds. It writes to:
 
-1. **`~/.bashrc`** — picked up by terminal-launched sessions
-2. **Windows user environment variable** (if on Windows) — picked up when Claude Code is launched from the desktop app
+1. **Your shell rc** (`~/.zshrc` on macOS, `~/.bashrc` on Linux) — terminal sessions
+2. **Windows user environment variable** (if on Windows) — desktop-app launches
 
 ### Manual setup (if not using setup.sh)
 
-**Linux/macOS:**
+**Preferred — settings.json:**
+```json
+{ "effortLevel": "xhigh" }
+```
+
+**Fallback env var (macOS/Linux):**
 ```bash
-echo 'export CLAUDE_CODE_EFFORT_LEVEL=max' >> ~/.bashrc
-source ~/.bashrc
+echo 'export CLAUDE_CODE_EFFORT_LEVEL=max' >> ~/.zshrc   # ~/.bashrc on Linux
+source ~/.zshrc
 ```
 
 **Windows (PowerShell):**
@@ -44,7 +62,3 @@ source ~/.bashrc
 [System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_EFFORT_LEVEL', 'max', 'User')
 ```
 Then restart Claude Code.
-
-### Why not settings.json?
-
-The `/effort` command supports four levels: `low`, `medium`, `high`, and `max`. The first three persist in settings automatically. `max` is intentionally session-only by default (it's slower and more expensive), so the only way to persist it is through the `CLAUDE_CODE_EFFORT_LEVEL` environment variable.
