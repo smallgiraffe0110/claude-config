@@ -1,6 +1,9 @@
 #!/bin/bash
-# Restore Claude Code config on a new machine
+# Restore Claude Code config on a new machine.
 # Usage: git clone <this-repo> && cd claude-config && bash setup.sh
+#
+# Idempotent: safe to re-run. Copies config into ~/.claude, wires shell helpers
+# into ~/.zshrc, and prints the external prerequisites it can't install for you.
 
 set -e
 
@@ -13,28 +16,40 @@ PROJECT_MEMORY="${PROJECT_MEMORY:-$CLAUDE_DIR/projects/-Users-hunterearls/memory
 mkdir -p "$CLAUDE_DIR"
 mkdir -p "$PROJECT_MEMORY"
 
-cp settings.json "$CLAUDE_DIR/settings.json"
-cp settings.local.json "$CLAUDE_DIR/settings.local.json"
-cp CLAUDE.md "$CLAUDE_DIR/CLAUDE.md"
-cp statusline.js "$CLAUDE_DIR/statusline.js"
-cp memory/*.md "$PROJECT_MEMORY/"
+# --- Core config files ---
+cp settings.json        "$CLAUDE_DIR/settings.json"
+cp settings.local.json  "$CLAUDE_DIR/settings.local.json"
+cp CLAUDE.md            "$CLAUDE_DIR/CLAUDE.md"
+cp statusline.js        "$CLAUDE_DIR/statusline.js"
+cp session-namer.js     "$CLAUDE_DIR/session-namer.js"
+cp shell-helpers.zsh    "$CLAUDE_DIR/shell-helpers.zsh"
+cp memory/*.md          "$PROJECT_MEMORY/"
+echo "Copied config into $CLAUDE_DIR"
+
+# --- Dev-workflow shell helpers (newproj/newnext/repos, $PROJECTS, PATH) ---
+# CLAUDE.md references these; source them from ~/.zshrc so they exist on login.
+ZSHRC="$HOME/.zshrc"
+[ -e "$ZSHRC" ] || touch "$ZSHRC"
+if ! grep -qF "shell-helpers.zsh" "$ZSHRC" 2>/dev/null; then
+  {
+    echo ""
+    echo "# Claude config — dev-workflow helpers"
+    echo '[ -f "$HOME/.claude/shell-helpers.zsh" ] && source "$HOME/.claude/shell-helpers.zsh"'
+  } >> "$ZSHRC"
+  echo "Sourced shell-helpers.zsh from $ZSHRC"
+fi
 
 # --- Max effort level (persistent) ---
 # Newer Claude Code persists effort via "effortLevel" in settings.json (this
 # backup ships "xhigh", the top tier) so the env var below is now a belt-and-
 # suspenders fallback — it also covers desktop-app launches that don't read
 # settings the same way. Harmless to keep.
-
 EFFORT_LINE='export CLAUDE_CODE_EFFORT_LEVEL=max'
-
-# Append to whichever login shells exist (zsh is macOS default; bash on Linux).
 for RC in "$HOME/.zshrc" "$HOME/.bashrc"; do
   [ -e "$RC" ] || { [ "$RC" = "$HOME/.zshrc" ] && [ "${SHELL##*/}" = "zsh" ] && touch "$RC"; }
   [ -e "$RC" ] || continue
   if ! grep -qF "$EFFORT_LINE" "$RC" 2>/dev/null; then
-    echo "" >> "$RC"
-    echo "# Claude Code - always use max effort" >> "$RC"
-    echo "$EFFORT_LINE" >> "$RC"
+    printf '\n# Claude Code - always use max effort\n%s\n' "$EFFORT_LINE" >> "$RC"
     echo "Added CLAUDE_CODE_EFFORT_LEVEL=max to $RC"
   fi
 done
@@ -47,7 +62,22 @@ if command -v powershell.exe &>/dev/null; then
   echo "Set Windows user environment variable CLAUDE_CODE_EFFORT_LEVEL=max"
 fi
 
+# --- Prerequisite check (these are NOT bundled — install separately) ---
+echo ""
+echo "Checking external prerequisites referenced by this config:"
+check() { if command -v "$1" >/dev/null 2>&1; then echo "  [ok]      $1 — $2"; else echo "  [MISSING] $1 — $2 ($3)"; fi; }
+check node "Claude Code, statusline, newnext" "install Node.js LTS"
+check git  "version control / newproj"        "install git"
+check gita "'repos' dashboard + newproj/newnext registration" "pipx install gita  (or: brew install gita)"
+# gstack ships as Claude Code skills (not a PATH binary) — check the skills dir.
+if [ -d "$CLAUDE_DIR/skills/gstack" ]; then
+  echo "  [ok]      gstack — /browse + ~40 skills in CLAUDE.md's gstack section"
+else
+  echo "  [MISSING] gstack — /browse + skills referenced in CLAUDE.md (install gstack; it populates ~/.claude/skills/gstack)"
+fi
+echo "  (optional) fzf, lazygit, bun — used by shell helpers if present"
+
 echo ""
 echo "Done! Claude Code config restored."
-echo "Plugins will auto-install on first launch."
-echo "Restart your terminal (or re-source your shell rc) to apply effort level."
+echo "Plugins (caveman, frontend-design, vercel, startup-skills, superpowers) auto-install on first launch."
+echo "Restart your terminal (or 'source ~/.zshrc') to load helpers + effort level."
