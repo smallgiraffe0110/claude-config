@@ -1,2 +1,3 @@
 - [Always use MAX effort](feedback_high_effort.md) — apply MAX (absolute highest) effort and thoroughness to all tasks
 - [User identity](user_identity.md) — Hunter Earls, GitHub smallgiraffe0110; correct git commit identity (global config had wrong "Quinn Hall")
+- [Claude config repo](project_claude_config_repo.md) — smallgiraffe0110/claude-config backs up ~/.claude; sync live→repo on "update config"
