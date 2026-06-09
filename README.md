@@ -2,6 +2,9 @@
 
 Personal Claude Code configuration backup. Clone and run `setup.sh` to restore on a new machine.
 
+> **[OPTIMIZATION.md](OPTIMIZATION.md)** — the playbook behind this config: what's
+> done, what's recommended next, and the menu of capability upgrades (with trade-offs).
+
 ## Quick Start
 
 ```bash

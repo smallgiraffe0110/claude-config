@@ -9,7 +9,9 @@ metadata:
 
 User's Claude Code config is backed up to the **public** GitHub repo `smallgiraffe0110/claude-config` (default branch `master`). No standing local clone — clone into `~/code/claude-config` when needed.
 
-It mirrors `~/.claude`: `CLAUDE.md`, `settings.json`, `settings.local.json`, `statusline.js`, `session-namer.js`, `shell-helpers.zsh`, `memory/` (mirrors `~/.claude/projects/-Users-hunterearls/memory/`). `setup.sh` restores it on a new machine (copies files, sources shell-helpers from `~/.zshrc`, checks prereqs: node/git/gita + gstack skills dir).
+It mirrors `~/.claude`: `CLAUDE.md`, `settings.json`, `settings.local.json`, `statusline.js`, `session-namer.js`, `shell-helpers.zsh`, `hooks/verify.js`, `memory/` (mirrors `~/.claude/projects/-Users-hunterearls/memory/`). `setup.sh` restores it on a new machine (copies files, installs hooks, sources shell-helpers from `~/.zshrc`, adds Context7 MCP, checks prereqs: node/git/gita + gstack skills dir).
+
+Active capability upgrades (see `OPTIMIZATION.md` in the repo): global **verification hooks** (`~/.claude/hooks/verify.js` — eslint per edit + `tsc --noEmit` at turn-end, blocks on type errors, no-ops outside JS/TS projects) and **Context7 MCP** (user scope, real-time library docs; say "use context7"). Model pinned `claude-opus-4-8`, `effortLevel: xhigh`.
 
 **Why:** "update the config repo" means sync live `~/.claude` → this repo, commit, push.
 **How to apply:** Diff live vs repo, copy live→repo, `git rm` dead memory, commit as Hunter Earls ([[user-identity]]), push to `master`. Repo is public — scan for secrets before pushing. Deliberately excluded: runtime/caches/`skills/`/plugin caches.
