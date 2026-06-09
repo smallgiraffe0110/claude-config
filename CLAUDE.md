@@ -34,6 +34,13 @@
 - `npx eslint .` — lint
 - `npx prettier --write .` — format
 
+## Verification
+- TS/JS must typecheck and lint clean before reporting done. Enforced by hooks:
+  `eslint --fix` runs per edit; `tsc --noEmit` (or `npm run typecheck`) runs at
+  turn-end and blocks completion on type errors. Don't claim done over a red check.
+- Use **Context7** for current library APIs — add "use context7" when working with
+  Next.js/React/Tailwind/Vercel or any fast-moving dep, instead of recalling from memory.
+
 ## Git
 - Write concise commit messages in imperative mood
 - Always check `git status` before committing

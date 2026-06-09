@@ -24,7 +24,26 @@ cp statusline.js        "$CLAUDE_DIR/statusline.js"
 cp session-namer.js     "$CLAUDE_DIR/session-namer.js"
 cp shell-helpers.zsh    "$CLAUDE_DIR/shell-helpers.zsh"
 cp memory/*.md          "$PROJECT_MEMORY/"
+mkdir -p "$CLAUDE_DIR/hooks"
+cp hooks/*.js           "$CLAUDE_DIR/hooks/"   # verification hooks (typecheck + lint)
 echo "Copied config into $CLAUDE_DIR"
+
+# --- Context7 MCP (real-time, version-specific library docs) ---
+# Lives in ~/.claude.json (user scope), not settings.json, so add it via the CLI.
+if command -v claude >/dev/null 2>&1; then
+  if claude mcp list 2>/dev/null | grep -qi context7; then
+    echo "Context7 MCP already configured"
+  else
+    if claude mcp add --transport http --scope user context7 https://mcp.context7.com/mcp >/dev/null 2>&1; then
+      echo "Added Context7 MCP (user scope)"
+    else
+      echo "Could not add Context7 MCP — add manually:"
+      echo "  claude mcp add --transport http --scope user context7 https://mcp.context7.com/mcp"
+    fi
+  fi
+else
+  echo "Skipped Context7 MCP — 'claude' CLI not on PATH"
+fi
 
 # --- Dev-workflow shell helpers (newproj/newnext/repos, $PROJECTS, PATH) ---
 # CLAUDE.md references these; source them from ~/.zshrc so they exist on login.

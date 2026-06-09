@@ -41,6 +41,23 @@
       }
     }
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "node ~/.claude/hooks/verify.js lint" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node ~/.claude/hooks/verify.js typecheck" }
+        ]
+      }
+    ]
+  },
   "model": "claude-opus-4-8",
   "effortLevel": "xhigh",
   "tui": "default",

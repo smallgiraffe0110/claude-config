@@ -18,10 +18,11 @@ Then restart your terminal (or re-source your shell rc — `~/.zshrc` on macOS).
 |---|---|
 | `settings.json` | Global settings — permissions mode, model (`claude-opus-4-8`), effort (`xhigh`), plugins, marketplaces, status line |
 | `settings.local.json` | Local/project-scoped Bash permissions and disabled MCP servers |
-| `CLAUDE.md` | Global instructions (effort, projects home, tech stack, coding style, gstack skills) |
+| `CLAUDE.md` | Global instructions (effort, projects home, tech stack, coding style, verification, gstack skills) |
 | `statusline.js` | Custom status line script |
 | `session-namer.js` | Helper that derives a short session name from the first prompt (standalone util) |
 | `shell-helpers.zsh` | Dev-workflow helpers — `newproj`, `newnext`, `repos`, `$PROJECTS`, PATH/env. `setup.sh` sources it from `~/.zshrc` |
+| `hooks/verify.js` | Verification hook — eslint per edit + project typecheck at turn-end (see below) |
 | `memory/` | Persistent memory files (user identity, feedback) |
 
 ## External Prerequisites
@@ -46,6 +47,35 @@ official `frontend-design` + `vercel` plugins. They auto-install on first launch
 > Note: the `vercel-vercel-plugin` marketplace entry in `settings.json` points at
 > a machine-local `.cache/plugins/.install-staging/...` path and is **disabled**.
 > It won't resolve on another machine — drop it (or repoint it) on restore.
+
+## Verification Hooks
+
+`hooks/verify.js` (wired in `settings.json`) closes the gap between "Claude says
+done" and "actually compiles". It's **global but free outside JS/TS projects** —
+it bails instantly when there's no `package.json`/`tsconfig.json`.
+
+| Event | Action |
+|---|---|
+| `PostToolUse` (Edit/Write/MultiEdit) | `eslint --fix` the changed `.ts/.tsx/.js/...` file; surface any remaining problems |
+| `Stop` (turn end) | `npm run typecheck` (if defined) else `npx tsc --noEmit`; **blocks the turn** on type errors so Claude fixes them first |
+
+Only uses project-local binaries (`node_modules/.bin`), so it never installs
+anything. The `Stop` hook honors `stop_hook_active` to avoid loops. To soften it
+to advisory, change the `Stop` hook command's behavior (or remove the `Stop` block).
+
+## Context7 MCP
+
+Real-time, version-specific library docs injected at request time — kills
+hallucinated/outdated APIs (big win for fast-moving Next.js/Vercel). `setup.sh`
+adds it at user scope (idempotent):
+
+```bash
+claude mcp add --transport http --scope user context7 https://mcp.context7.com/mcp
+```
+
+API key optional (`context7.com/dashboard` for higher rate limits). It lives in
+`~/.claude.json`, not `settings.json`, which is why setup adds it via the CLI.
+Usage: say "use context7" in a prompt when working against a library API.
 
 ## Persistent Max Effort
 
