@@ -43,9 +43,9 @@ warns if missing:
 
 ### Plugins enabled
 
-`superpowers` + `superpowers-lab` (obra/superpowers-marketplace), `caveman`
-(JuliusBrussee/caveman), `startup-skills` (quinnhall07/startup-skills), and the
-official `frontend-design` + `vercel` plugins. They auto-install on first launch.
+`superpowers` + `superpowers-lab` (obra/superpowers-marketplace),
+`startup-skills` (quinnhall07/startup-skills), and the official
+`frontend-design` + `vercel` plugins. They auto-install on first launch.
 
 > Note: the `vercel-vercel-plugin` marketplace entry in `settings.json` points at
 > a machine-local `.cache/plugins/.install-staging/...` path and is **disabled**.

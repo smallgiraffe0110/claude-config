@@ -29,7 +29,7 @@ utilization even as raw output rises. Protect the window.
 | **Context7 MCP** | real-time, version-specific library docs → kills hallucinated/outdated APIs | user scope (`~/.claude.json`), added by `setup.sh` |
 | **Lean CLAUDE.md** | only what Claude would get wrong; verification + context7 guidance | `CLAUDE.md` |
 | **Persistent memory** | native auto-memory + `memory/MEMORY.md` index | `memory/` |
-| **Skill plugins** | superpowers (TDD, debugging, brainstorming), frontend-design, vercel, startup-skills, caveman | `settings.json` |
+| **Skill plugins** | superpowers (TDD, debugging, brainstorming), frontend-design, vercel, startup-skills | `settings.json` |
 | **Browser/QA** | gstack `/browse` + qa/design-review/ship skills | gstack install |
 
 ---

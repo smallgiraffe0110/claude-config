@@ -98,5 +98,5 @@ echo "  (optional) fzf, lazygit, bun — used by shell helpers if present"
 
 echo ""
 echo "Done! Claude Code config restored."
-echo "Plugins (caveman, frontend-design, vercel, startup-skills, superpowers) auto-install on first launch."
+echo "Plugins (frontend-design, vercel, startup-skills, superpowers) auto-install on first launch."
 echo "Restart your terminal (or 'source ~/.zshrc') to load helpers + effort level."
