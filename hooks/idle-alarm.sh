@@ -9,11 +9,13 @@
 # Internal:                    idle-alarm.sh watch <claude_pid> <transcript> <session_id>
 #
 # Tunables (env): CLAUDE_IDLE_ALARM_SECS (default 1800),
-#   CLAUDE_IDLE_ALARM_INTERVAL (default 15), CLAUDE_IDLE_ALARM_SOUND (Sosumi)
+#   CLAUDE_IDLE_ALARM_INTERVAL (default 15),
+#   CLAUDE_IDLE_ALARM_SOUND (default sounds/evil-alarm.wav; regenerate
+#   with make-evil-alarm.py, or set any system sound name / file path)
 
 IDLE_SECS="${CLAUDE_IDLE_ALARM_SECS:-1800}"
 ALARM_INTERVAL="${CLAUDE_IDLE_ALARM_INTERVAL:-15}"
-SOUND="${CLAUDE_IDLE_ALARM_SOUND:-Sosumi}"
+SOUND="${CLAUDE_IDLE_ALARM_SOUND:-$HOME/.claude/hooks/sounds/evil-alarm.wav}"
 RUN_DIR="$HOME/.claude/hooks/idle-alarm"
 mkdir -p "$RUN_DIR"
 
