@@ -24,7 +24,7 @@
           },
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Glass.aiff",
+            "command": "~/.claude/hooks/play-sound.sh Glass",
             "async": true
           }
         ]
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Pop.aiff",
+            "command": "~/.claude/hooks/play-sound.sh Pop",
             "async": true
           }
         ]
@@ -46,18 +46,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Funk.aiff",
+            "command": "~/.claude/hooks/play-sound.sh Funk",
             "async": true
           }
         ]
       }
     ],
-    "PostToolUseFailure": [
+    "SessionStart": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Basso.aiff",
+            "command": "~/.claude/hooks/play-sound.sh start",
             "async": true
           }
         ]

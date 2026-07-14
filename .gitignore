@@ -1,1 +1,4 @@
 *.tar.gz
+hooks/claude-sound-daemon
+hooks/sound-fifo
+.DS_Store
