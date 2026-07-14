@@ -15,10 +15,13 @@ start_daemon() {
 
 case "$1" in
   "") start_daemon; exit 0 ;;
-  start) start_daemon; SOUND="${2:-Hero}" ;;
+  start) SOUND="${2:-Hero}" ;;
   *) SOUND="$1" ;;
 esac
 
+# Only use the FIFO when the daemon was already running before this call;
+# a freshly spawned daemon may not have recreated the FIFO yet, and writing
+# to the previous daemon's stale FIFO blocks forever (no reader).
 if daemon_running && [ -p "$FIFO" ]; then
   printf '%s\n' "$SOUND" > "$FIFO"
 else
