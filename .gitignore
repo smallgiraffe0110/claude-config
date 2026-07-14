@@ -5,3 +5,4 @@ hooks/sound-fifo
 hooks/idle-alarm/
 hooks/sound-daemon.log
 hooks/hook-debug.log
+hooks/sound-daemon.pid

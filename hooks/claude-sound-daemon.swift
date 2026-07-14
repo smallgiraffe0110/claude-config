@@ -21,6 +21,17 @@ func log(_ msg: String) {
     }
 }
 
+// Refuse to run alongside another instance: duplicate daemons round-robin
+// the FIFO and defeat playback serialization.
+let pidPath = NSHomeDirectory() + "/.claude/hooks/sound-daemon.pid"
+if let old = try? String(contentsOfFile: pidPath, encoding: .utf8),
+   let oldPid = Int32(old.trimmingCharacters(in: .whitespacesAndNewlines)),
+   kill(oldPid, 0) == 0 {
+    log("another instance (pid \(oldPid)) is running; exiting")
+    exit(0)
+}
+try? "\(getpid())\n".write(toFile: pidPath, atomically: true, encoding: .utf8)
+
 // Reuse an existing FIFO rather than recreating it: unlink+mkfifo strands
 // any writer already blocked on the old inode, waiting on a reader that
 // will never come.

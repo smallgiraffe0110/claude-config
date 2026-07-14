@@ -6,7 +6,9 @@
 DAEMON="$HOME/.claude/hooks/claude-sound-daemon"
 FIFO="$HOME/.claude/hooks/sound-fifo"
 
-daemon_running() { /usr/bin/pgrep -qf "$DAEMON"; }
+# Match by name, not full path: the daemon may have been launched via a
+# relative path, and a missed match here spawns duplicate daemons.
+daemon_running() { /usr/bin/pgrep -qf claude-sound-daemon; }
 
 start_daemon() {
   [ -x "$DAEMON" ] || return 1
