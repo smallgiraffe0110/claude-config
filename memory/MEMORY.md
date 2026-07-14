@@ -1,3 +1,7 @@
-- [Always use MAX effort](feedback_high_effort.md) — apply MAX (absolute highest) effort and thoroughness to all tasks
+- [Default to HIGH effort](feedback_high_effort.md) — HIGH is the standing default; step up to MAX/xhigh only when explicitly asked
 - [User identity](user_identity.md) — Hunter Earls, GitHub smallgiraffe0110; correct git commit identity (global config had wrong "Quinn Hall")
 - [Claude config repo](project_claude_config_repo.md) — smallgiraffe0110/claude-config backs up ~/.claude; sync live→repo on "update config"
+- [Todolist app](project_todolist_app.md) — deployed multi-tenant todo at todo.hunterearls.dev (CF Workers+D1); deploy via .cf-deploy-creds; phase 4 = agent API token + MCP server (deferred)
+- [Flathead EXO](project_flathead_exo.md) — EXO 2nd Brain for Flathead Forge: Supabase Postgres+pgvector+RLS+Auth+Vault+Edge Functions, markdown+Git canonical vault, captures MS365 email + Granola; gated @flatheadforge.com. Authoritative ground-rules files vendored in repo
+- [Personal CRM (Orbit)](project_personal_crm.md) — single-user message-first CRM at ~/code/personal-crm, forked from EXO; iMessage+LinkedIn ingest, cloud Supabase+Vercel+local Mac agent; P0+P1 code-complete & green, not yet deployed (see DEPLOY.md)
+- [SetNForget proposal](project_setnforget_proposal.md) — Academic Platforms proposal source at ~/code/setnforget-proposals; build with Homebrew weasyprint (not uvx)

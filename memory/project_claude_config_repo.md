@@ -7,7 +7,7 @@ metadata:
   originSessionId: aa0b98b0-9381-43da-bf4f-dba974a2ff74
 ---
 
-User's Claude Code config is backed up to the **public** GitHub repo `smallgiraffe0110/claude-config` (default branch `master`). No standing local clone — clone into `~/code/claude-config` when needed.
+User's Claude Code config is backed up to the **public** GitHub repo `smallgiraffe0110/claude-config` (default branch `master`). Standing local clone at `~/claude-config` (git identity already set to Hunter Earls — matches [[user-identity]]); pull before editing, push to `master`.
 
 It mirrors `~/.claude`: `CLAUDE.md`, `settings.json`, `settings.local.json`, `statusline.js`, `session-namer.js`, `shell-helpers.zsh`, `hooks/verify.js`, `memory/` (mirrors `~/.claude/projects/-Users-hunterearls/memory/`). `setup.sh` restores it on a new machine (copies files, installs hooks, sources shell-helpers from `~/.zshrc`, adds Context7 MCP, checks prereqs: node/git/gita + gstack skills dir).
 

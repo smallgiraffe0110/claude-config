@@ -1,7 +1,7 @@
 # User-Level Instructions
 
 ## Effort Level
-- **ALWAYS use MAX effort.** Every task gets the absolute highest level of thoroughness, analysis, and attention to detail. No shortcuts, no lazy defaults, no holding back. Push beyond "good enough" to the best possible outcome.
+- **Default to HIGH effort.** Bring strong thoroughness, analysis, and attention to detail to every task — no shortcuts, no lazy defaults. Step up to MAX (xhigh) effort only when I explicitly ask (e.g. via `/effort` or "use max effort").
 
 ## Projects Home
 - All my code repos live in **`~/code`**. Treat it as the workspace root.
