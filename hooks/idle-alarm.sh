@@ -29,33 +29,38 @@ claude_ancestor() {
   return 1
 }
 
+# Full descendant list from the raw process table (pgrep -P silently
+# omits its own ancestors on macOS, hiding the very shells we look for).
 list_descendants() {
-  for _k in $(pgrep -P "$1" 2>/dev/null); do
-    printf '%s\n' "$_k"
-    list_descendants "$_k"
-  done
+  ps -axo pid=,ppid= | awk -v root="$1" '
+    { pid[NR] = $1; pp[NR] = $2 }
+    END {
+      want[root] = 1; changed = 1
+      while (changed) {
+        changed = 0
+        for (i = 1; i <= NR; i++)
+          if (want[pp[i]] && !want[pid[i]]) { want[pid[i]] = 1; changed = 1 }
+      }
+      for (i = 1; i <= NR; i++)
+        if (want[pid[i]] && pid[i] != root) print pid[i]
+    }'
 }
 
-etime_secs() {
-  ps -o etime= -p "$1" 2>/dev/null | awk '
-    NF { n = split($1, a, /[-:]/); s = 0
-         if (n == 4) s = a[1]*86400 + a[2]*3600 + a[3]*60 + a[4]
-         else if (n == 3) s = a[1]*3600 + a[2]*60 + a[3]
-         else if (n == 2) s = a[1]*60 + a[2]
-         print s }'
-}
-
-# Busy = the session spawned work after startup that is still running
-# (foreground/background shell commands, dev servers). MCP servers and
-# other session-startup children are ignored via a 2-minute age grace.
+# Busy = the session is running actual work: a shell in claude's process
+# tree (every Bash tool command runs via one, foreground or background)
+# or a descendant listening on a TCP port (dev server). Session
+# infrastructure (MCP servers, LSP servers, caffeinate) is stdio-based
+# and matches neither.
 busy() {
-  _claude_age=$(etime_secs "$1")
-  [ -n "$_claude_age" ] || return 1
-  for _pid in $(list_descendants "$1"); do
-    _age=$(etime_secs "$_pid")
-    [ -n "$_age" ] || continue
-    if [ $((_claude_age - _age)) -gt 120 ]; then return 0; fi
+  _pids=$(list_descendants "$1")
+  [ -n "$_pids" ] || return 1
+  for _pid in $_pids; do
+    case "$(ps -o comm= -p "$_pid" 2>/dev/null | tr -d ' ')" in
+      zsh|bash|sh|*/zsh|*/bash|*/sh) return 0 ;;
+    esac
   done
+  _plist=$(printf '%s' "$_pids" | tr '\n' ',' | sed 's/,$//')
+  lsof -a -p "$_plist" -iTCP -sTCP:LISTEN >/dev/null 2>&1 && return 0
   return 1
 }
 
@@ -72,6 +77,13 @@ newest_activity() {
 }
 
 case "$1" in
+  check)
+    # Debug: idle-alarm.sh check <claude_pid> <transcript>
+    _last=$(newest_activity _ "$3")
+    echo "idle: $(( $(date +%s) - _last ))s (threshold ${IDLE_SECS}s)"
+    if busy "$2"; then echo "busy: yes (alarm suppressed)"; else echo "busy: no"; fi
+    ;;
+
   arm)
     IN=$(cat)
     SID=$(printf '%s' "$IN" | jq -r '.session_id // empty')
