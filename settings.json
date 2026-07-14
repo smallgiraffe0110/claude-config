@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/play-sound.sh Pop",
+            "command": "~/.claude/hooks/play-sound.sh ~/.claude/hooks/sounds/submit-blip.wav",
             "async": true
           }
         ]

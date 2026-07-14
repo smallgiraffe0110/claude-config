@@ -3,3 +3,5 @@ hooks/claude-sound-daemon
 hooks/sound-fifo
 .DS_Store
 hooks/idle-alarm/
+hooks/sound-daemon.log
+hooks/hook-debug.log
