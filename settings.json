@@ -59,6 +59,22 @@
             "type": "command",
             "command": "~/.claude/hooks/play-sound.sh start",
             "async": true
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/idle-alarm.sh arm",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/idle-alarm.sh disarm",
+            "async": true
           }
         ]
       }
