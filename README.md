@@ -27,6 +27,7 @@ Then restart your terminal (or re-source your shell rc — `~/.zshrc` on macOS).
 | `shell-helpers.zsh` | Dev-workflow helpers — `newproj`, `newnext`, `repos`, `$PROJECTS`, PATH/env. `setup.sh` sources it from `~/.zshrc` |
 | `hooks/verify.js` | Verification hook — eslint per edit + project typecheck at turn-end (see below) |
 | `memory/` | Persistent memory files (user identity, feedback) |
+| `skills/` | Custom user skills — `client-before-after-audit` (client before/after audit runbook for `~/code/before-after-capture`) |
 
 ## External Prerequisites
 
@@ -117,7 +118,7 @@ Not backed up **on purpose** (regenerated or machine-local — not lost):
 
 - **Runtime/ephemeral:** `sessions/`, `tasks/`, `history.jsonl`, `*-cache.json`, `telemetry/`, `daemon.log`, `vercel-plugin-device-id`.
 - **Plugin caches** (`plugins/cache/…`) — reinstalled from the marketplaces declared in `settings.json` on first launch.
-- **`skills/`** — gstack / Cloudflare / Vercel skills are managed by their own installers (gstack skills are a separate git repo).
+- **Installer-managed skills** — gstack / Cloudflare / Vercel skills in `~/.claude/skills` are managed by their own installers (gstack skills are a separate git repo). Only custom skills live in `skills/` here.
 - No custom user-level `agents/`, `commands/`, or `hooks/` exist, so there's nothing to back up there.
 
 > Heads-up: the `vercel-vercel-plugin` marketplace in `settings.json` is a

@@ -26,6 +26,8 @@ cp shell-helpers.zsh    "$CLAUDE_DIR/shell-helpers.zsh"
 cp memory/*.md          "$PROJECT_MEMORY/"
 mkdir -p "$CLAUDE_DIR/hooks"
 cp hooks/*.js           "$CLAUDE_DIR/hooks/"   # verification hooks (typecheck + lint)
+mkdir -p "$CLAUDE_DIR/skills"
+cp -R skills/*          "$CLAUDE_DIR/skills/"  # custom user skills (not installer-managed)
 echo "Copied config into $CLAUDE_DIR"
 
 # --- Context7 MCP (real-time, version-specific library docs) ---
