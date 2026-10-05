@@ -2,7 +2,6 @@
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
-  "model": "claude-fable-5[1m]",
   "hooks": {
     "PostToolUse": [
       {
@@ -90,7 +89,11 @@
     "frontend-design@claude-plugins-official": true,
     "vercel@claude-plugins-official": true,
     "startup-skills@startup-skills": true,
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
@@ -112,7 +115,8 @@
       }
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
+  "advisorModel": "fable",
   "tui": "default",
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": false
