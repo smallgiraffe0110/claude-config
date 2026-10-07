@@ -1,3 +1,4 @@
+- [Current focus](project_current_focus.md) — 2026-10-07: only Implemented Systems (MedSpa under it) + a separate startup TBD; SBS and Flathead exo are LEGACY → archive, don't load unless asked
 - [Default to HIGH effort](feedback_high_effort.md) — HIGH is the standing default; step up to MAX/xhigh only when explicitly asked
 - [User identity](user_identity.md) — Hunter Earls, GitHub smallgiraffe0110; correct git commit identity (global config had wrong "Quinn Hall")
 - [Claude config repo](project_claude_config_repo.md) — smallgiraffe0110/claude-config backs up ~/.claude; sync live→repo on "update config"
@@ -5,3 +6,4 @@
 - [Flathead EXO](project_flathead_exo.md) — EXO 2nd Brain for Flathead Forge: Supabase Postgres+pgvector+RLS+Auth+Vault+Edge Functions, markdown+Git canonical vault, captures MS365 email + Granola; gated @flatheadforge.com. Authoritative ground-rules files vendored in repo
 - [Personal CRM (Orbit)](project_personal_crm.md) — single-user message-first CRM at ~/code/personal-crm, forked from EXO; iMessage+LinkedIn ingest, cloud Supabase+Vercel+local Mac agent; P0+P1 code-complete & green, not yet deployed (see DEPLOY.md)
 - [SetNForget proposal](project_setnforget_proposal.md) — Academic Platforms proposal source at ~/code/setnforget-proposals; build with Homebrew weasyprint (not uvx)
+- [File layout](reference_file_layout.md) — ~/code top level = main projects only; new → ~/code/_side; legacy → ~/code/_archive; legacy project notes in memory/legacy/ (read only if asked)

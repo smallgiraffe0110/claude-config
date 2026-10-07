@@ -15,6 +15,7 @@ PROJECT_MEMORY="${PROJECT_MEMORY:-$CLAUDE_DIR/projects/-Users-hunterearls/memory
 
 mkdir -p "$CLAUDE_DIR"
 mkdir -p "$PROJECT_MEMORY"
+mkdir -p "$HOME/code/_side" "$HOME/code/_archive"   # layout CLAUDE.md assumes
 
 # --- Core config files ---
 cp settings.json        "$CLAUDE_DIR/settings.json"
@@ -100,5 +101,6 @@ echo "  (optional) fzf, lazygit, bun — used by shell helpers if present"
 
 echo ""
 echo "Done! Claude Code config restored."
+echo "Next: bash tidy-code.sh (dry run), then bash tidy-code.sh --apply to archive non-main projects in ~/code."
 echo "Plugins (frontend-design, vercel, startup-skills, superpowers) auto-install on first launch."
 echo "Restart your terminal (or 'source ~/.zshrc') to load helpers + effort level."

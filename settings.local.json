@@ -44,7 +44,10 @@
       "Bash(brew outdated:*)",
       "Bash(echo \"exit=$?\")",
       "Bash(npm config:*)",
-      "Bash(npm -v)"
+      "Bash(npm -v)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Agent"
     ]
   },
   "disabledMcpjsonServers": [

@@ -12,6 +12,8 @@ export BUN_INSTALL="$HOME/.bun"
 
 # --- Projects home (CLAUDE.md assumes ~/code is the workspace root) ---
 export PROJECTS="$HOME/code"
+# Top level of ~/code is reserved for the main projects; everything new lands in _side.
+export SIDE_PROJECTS="$PROJECTS/_side"
 
 # --- fzf integration (Ctrl-r history, Ctrl-t files, completions) ---
 command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
@@ -21,21 +23,21 @@ alias repos='gita ll'                    # status of every repo at a glance
 alias repos-fetch='gita super -q fetch'  # fetch all repos
 alias lg='lazygit'
 
-# Start a new project in ~/code, git-init it, register with gita, cd in.
+# Start a new project in ~/code/_side, git-init it, register with gita, cd in.
 newproj() {
   if [[ -z "$1" ]]; then echo "usage: newproj <name>"; return 1; fi
-  local dir="$PROJECTS/$1"
+  local dir="$SIDE_PROJECTS/$1"
   if [[ -e "$dir" ]]; then echo "exists: $dir"; return 1; fi
   mkdir -p "$dir" && cd "$dir" && git init -q
   command -v gita >/dev/null 2>&1 && gita add "$dir" >/dev/null 2>&1
   echo "created $dir"
 }
 
-# Scaffold a Next.js + TS + Tailwind app in ~/code (matches CLAUDE.md tech stack).
+# Scaffold a Next.js + TS + Tailwind app in ~/code/_side (matches CLAUDE.md tech stack).
 newnext() {
   if [[ -z "$1" ]]; then echo "usage: newnext <name>"; return 1; fi
-  cd "$PROJECTS" || return 1
+  mkdir -p "$SIDE_PROJECTS" && cd "$SIDE_PROJECTS" || return 1
   npx create-next-app@latest "$1" --ts --tailwind --eslint --app --src-dir --use-npm \
-    && cd "$PROJECTS/$1" \
-    && { command -v gita >/dev/null 2>&1 && gita add "$PROJECTS/$1" >/dev/null 2>&1; }
+    && cd "$SIDE_PROJECTS/$1" \
+    && { command -v gita >/dev/null 2>&1 && gita add "$SIDE_PROJECTS/$1" >/dev/null 2>&1; }
 }

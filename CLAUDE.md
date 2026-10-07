@@ -4,9 +4,12 @@
 - **Default to HIGH effort.** Bring strong thoroughness, analysis, and attention to detail to every task — no shortcuts, no lazy defaults. Step up to MAX (xhigh) effort only when I explicitly ask (e.g. via `/effort` or "use max effort").
 
 ## Projects Home
-- All my code repos live in **`~/code`**. Treat it as the workspace root.
-- **New projects go in `~/code/<name>`.** When creating a new project/app/repo, scaffold it under `~/code/` unless I give an explicit path. Don't create projects in `~` or `~/Downloads`.
-- Shell helpers exist: `newproj <name>` (mkdir + git init in ~/code) and `newnext <name>` (create-next-app in ~/code). Repos are tracked with `gita` (`repos` = status of all).
+- All my code lives in **`~/code`**. Its top level is reserved for my **main projects only**:
+  `implemented-systems` (with `medspa-systems` under it) and one separate startup (TBD).
+- **Any other new project goes in `~/code/_side/<name>`** unless I give an explicit path or say it is a main project. Never create projects in `~`, `~/Downloads`, or the top level of `~/code`.
+- **`~/code/_archive`** holds legacy work (SBS, Flathead exo, everything pre-2026-10-07). Don't work there or pull context from it unless I ask. Archive means move, never delete.
+- Start sessions inside the repo being worked on, not `~`.
+- Shell helpers: `newproj <name>` (mkdir + git init in ~/code/_side) and `newnext <name>` (create-next-app in ~/code/_side). Repos are tracked with `gita` (`repos` = status of all).
 
 ## Tech Stack
 - **Framework:** Next.js (App Router preferred)

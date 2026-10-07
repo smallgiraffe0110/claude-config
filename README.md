@@ -15,18 +15,26 @@ bash setup.sh
 
 Then restart your terminal (or re-source your shell rc — `~/.zshrc` on macOS).
 
+To match the folder layout (`~/code` = main projects, `_side` = new, `_archive` = legacy):
+
+```bash
+bash tidy-code.sh           # dry run
+bash tidy-code.sh --apply   # move non-main projects into ~/code/_archive
+```
+
 ## What's Included
 
 | File | Purpose |
 |---|---|
-| `settings.json` | Global settings — permissions mode, model (`claude-opus-4-8`), effort (`xhigh`), plugins, marketplaces, status line |
+| `settings.json` | Global settings — permissions mode, effort, hooks, plugins, marketplaces, status line |
 | `settings.local.json` | Local/project-scoped Bash permissions and disabled MCP servers |
 | `CLAUDE.md` | Global instructions (effort, projects home, tech stack, coding style, verification, gstack skills) |
 | `statusline.js` | Custom status line script |
 | `session-namer.js` | Helper that derives a short session name from the first prompt (standalone util) |
-| `shell-helpers.zsh` | Dev-workflow helpers — `newproj`, `newnext`, `repos`, `$PROJECTS`, PATH/env. `setup.sh` sources it from `~/.zshrc` |
+| `shell-helpers.zsh` | Dev-workflow helpers — `newproj`, `newnext` (both create in `~/code/_side`), `repos`, `$PROJECTS`, PATH/env. `setup.sh` sources it from `~/.zshrc` |
+| `tidy-code.sh` | Archives everything at the top of `~/code` except the main projects into `~/code/_archive`. Dry run by default; `--apply` to move. Never deletes |
 | `hooks/verify.js` | Verification hook — eslint per edit + project typecheck at turn-end (see below) |
-| `memory/` | Persistent memory files (user identity, feedback) |
+| `memory/` | Persistent memory files (user identity, feedback, current focus, file layout). Project notes are kept local — this repo is public |
 | `skills/` | Custom user skills — `client-before-after-audit` (client before/after audit runbook for `~/code/before-after-capture`) |
 
 ## External Prerequisites
